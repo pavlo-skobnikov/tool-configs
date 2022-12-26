@@ -1,0 +1,9 @@
+# Ignore everything in repository root 
+/*
+
+# Negated patterns => basically, only includes are listed below!
+!.gitignore
+!zsh/
+!kitty/
+!nvim/
+
