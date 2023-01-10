@@ -1,9 +1,4 @@
-# Ignore everything in repository root 
-/*
+.idea
+github-copilot
 
-# Negated patterns => basically, only includes are listed below!
-!.gitignore
-!zsh/
-!kitty/
-!nvim/
-
+.config.iml

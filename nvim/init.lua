@@ -1,1 +1,0 @@
-require("pavlo_skobnikov")
