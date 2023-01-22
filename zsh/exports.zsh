@@ -7,3 +7,4 @@ export MANWIDTH=999
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH="$HOME/.local/share/neovim/bin":$PATH
 export PATH="$HOME/.emacs.d/bin":$PATH
+export PATH="$HOME/.local/share/nvim/mason/bin":$PATH # Mason's path for installing LSPs
