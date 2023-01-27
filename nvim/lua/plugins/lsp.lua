@@ -1,4 +1,5 @@
 return {
+  -- LSP-related things
   { "folke/neodev.nvim" }, -- NeoVim-specific Lua LSP extension
   { "mfussenegger/nvim-jdtls" }, -- Java LSP but better
   { "williamboman/mason.nvim" }, -- Easily manage external editor tooling such as LSP servers, DAP servers, linters, and formatters through a single interface
@@ -11,7 +12,7 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "sumneko_lua", "jdtls", "gradle_ls", "dockerls", "marksman", "yamlls", "jsonls" },
+        ensure_installed = { "sumneko_lua", "jdtls", "gradle_ls", "dockerls", "marksman", "yamlls", "jsonls", "quick_lint_js" },
         automatic_installation = false,
       })
       require("neodev").setup()
@@ -52,4 +53,7 @@ return {
       })
     end
   },
+  -- DAP-related things
+  { "mfussenegger/nvim-dap" }, -- Debug Adapter Protocol client implementation
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"} }, -- A UI for nvim-dap
 }

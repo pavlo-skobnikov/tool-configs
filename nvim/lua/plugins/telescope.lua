@@ -110,4 +110,12 @@ return {
       telescope.load_extension("ui-select")
     end,
   },
+  { -- UI picker extension for DAP
+    "nvim-telescope/telescope-dap.nvim",
+    config = function()
+      local telescope = require("telescope")
+
+      telescope.load_extension("dap")
+    end,
+  },
 }

@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter
 local utility_fns = require("utility.functions")
 local lsp_maps = require("user.lsp_maps")
 
@@ -65,8 +66,12 @@ local config = {
     map_w_opts("v", "<space>rm", function() jdtls.extract_constant(true) end, "Extract Method")
 
     -- This requires java-debug and vscode-java-test bundles
-    -- nnoremap <leader>df <Cmd>lua require'jdtls'.test_class()<CR>
-    -- nnoremap <leader>dn <Cmd>lua require'jdtls'.test_nearest_method()<CR>
+    map_w_opts("n", "<leader>df", require'jdtls'.test_class, "Test Class")
+    map_w_opts("n", "<leader>dn", require'jdtls'.test_nearest_method, "Test Nearest Method")
+
+    jdtls.setup_dap({
+      hotcodereplace = "auto"
+    })
   end,
 
   -- 💀
@@ -88,7 +93,7 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {}
+    bundles = vim.split(vim.fn.glob("/Users/pavlo.skobnikov/.local/source/*.jar"), "\n")
   },
 }
 -- This starts a new client & server,
