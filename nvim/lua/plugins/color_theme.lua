@@ -4,10 +4,6 @@ return {
     config = function()
       local theme = require("onedark")
 
-      theme.setup({
-        style = "warm"
-      })
-
       theme.load() -- Load the theme
     end
   },
