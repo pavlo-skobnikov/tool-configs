@@ -8,11 +8,6 @@ return {
 
       require("luasnip/loaders/from_vscode").lazy_load()
 
-      local check_backspace = function()
-        local col = vim.fn.col "." - 1
-        return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
-      end
-
       cmp.setup {
         snippet = {
           expand = function(args)
@@ -21,47 +16,33 @@ return {
         },
 
         mapping = {
-          ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-j>"] = cmp.mapping.select_next_item(),
-          ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-          ["<C-e>"] = cmp.mapping {
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
+          ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+          ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+          ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<C-y>"] = cmp.mapping(cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+          }, { "i", "c" }),
+          ["<C-S-y>"] = cmp.mapping(cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = false,
+          }, { "i", "c" }),
+
+          ["<C-space>"] = cmp.mapping {
+            ---@diagnostic disable: missing-parameter
+            i = cmp.mapping.complete(),
+            c = function( _ --[[fallback]])
+              if cmp.visible() then
+                if not cmp.confirm { select = true } then
+                  return
+                end
+              else
+                cmp.complete()
+              end
+            end,
           },
-          -- Accept currently selected item. If none selected, `select` first item.
-          -- Set `select` to `false` to only confirm explicitly selected items.
-          ["<CR>"] = cmp.mapping.confirm { select = true },
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expandable() then
-              luasnip.expand()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            elseif check_backspace() then
-              fallback()
-            else
-              fallback()
-            end
-          end, {
-            "i",
-            "s",
-          }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, {
-            "i",
-            "s",
-          }),
         },
 
         formatting = {
@@ -73,18 +54,17 @@ return {
               nvim_lua = "[api]",
               path = "[path]",
               luasnip = "[snip]",
-              gh_issues = "[issues]",
             },
           },
         },
 
+        -- Order for completion suggestions
         sources = {
           { name = "nvim_lua" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
           { name = "buffer", keyword_length = 5 },
-          { name = "gh_issues" },
         },
 
         confirm_opts = {
@@ -93,14 +73,39 @@ return {
         },
 
         window = {
+          -- Nice round borders for completion windows
+          completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
 
         experimental = {
-          ghost_text = false,
-          native_menu = false,
+          -- Cool text preview in the editor
+          ghost_text = true,
         },
       }
+
+      -- Use buffer source for searches `/` and `?`.
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- Use cmdline & path source for ':'.
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline({
+          ["<C-y>"] = {
+            c = cmp.mapping.confirm({ select = false }),
+          }
+        }),
+        sources = cmp.config.sources({
+          { name = 'cmdline' }
+        }, {
+          { name = 'buffer' },
+          { name = "path" },
+        })
+      })
     end,
   },
   { "hrsh7th/cmp-buffer" }, -- Current buffer completions
@@ -109,9 +114,6 @@ return {
   { "hrsh7th/cmp-nvim-lsp" }, -- LSP-integration completions
   { "onsails/lspkind-nvim" }, -- VSCode-style completion kinds
   { "tamago324/cmp-zsh" }, -- Zsh completions Zsp
-  { -- Snippet engine
-    "saadparwaiz1/cmp_luasnip",
-    dependencies = { "L3MON4D3/LuaSnip" }, -- Snippet engine
-  },
+  { "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } }, -- Snippet engine
   { "rafamadriz/friendly-snippets" } -- A bunch of snippets to use
 }
