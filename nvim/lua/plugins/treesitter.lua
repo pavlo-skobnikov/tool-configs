@@ -6,8 +6,28 @@ return {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        -- A list of parser names, or "all" (the four listed parsers should always be installed)
-        ensure_installed = { "c", "java", "lua", "vim", "help" },
+        ensure_installed = {
+          -- Required for Treesitter to function parsers
+          "c", "lua", "vim", "help",
+          -- Additional parsers
+          "query", -- for "nvim-treesitter/playground"
+          "http",
+          "comment",
+          "markdown",
+          "json",
+          "dockerfile",
+          "yaml",
+          "terraform",
+          "hcl",
+          -- Git parsers
+          "diff",
+          "gitattributes",
+          "gitcommit",
+          "gitignore",
+          -- Language parsers
+          "sql",
+          "java",
+        },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -15,12 +35,6 @@ return {
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
         auto_install = true,
-
-        -- List of parsers to ignore installing (for "all")
-        ignore_install = { "javascript" },
-
-        ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-        -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
         highlight = {
           -- `false` will disable the whole extension
@@ -34,5 +48,33 @@ return {
         },
       })
     end,
-  }
+  },
+  {
+    "nvim-treesitter/playground",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function ()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        playground = {
+          enable = true,
+          disable = {},
+          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+          persist_queries = false, -- Whether the query persists across vim sessions
+          keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injected_languages = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+          },
+        }
+      })
+    end
+  },
 }
