@@ -1,5 +1,6 @@
+-- Description: Treesitter (parsing code as ASTs) configuration
 return {
-  {
+  { -- Treesitter plugin itself
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
@@ -39,6 +40,7 @@ return {
         highlight = {
           -- `false` will disable the whole extension
           enable = true,
+          use_languagetree = true,
 
           -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
           -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -46,13 +48,17 @@ return {
           -- Instead of true it can also be a list of languages
           additional_vim_regex_highlighting = false,
         },
+
+        indent = {
+          enable = true,
+        },
       })
     end,
   },
-  {
+  { -- Treesitter playground -> awesome for debugging queries
     "nvim-treesitter/playground",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    config = function ()
+    config = function()
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
@@ -78,3 +84,4 @@ return {
     end
   },
 }
+

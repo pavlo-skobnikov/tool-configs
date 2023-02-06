@@ -25,3 +25,4 @@ require("user.maps")
 ----------------------------------------------[[  Load Plugins  ]]
 
 require("lazy").setup("plugins") -- Loads each lua/plugin/*
+

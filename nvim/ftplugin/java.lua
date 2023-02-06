@@ -1,6 +1,8 @@
----@diagnostic disable: missing-parameter
+--@diagnostic disable: missing-parameter
+
 local utility_fns = require("utility.functions")
 local lsp_maps = require("user.lsp_maps")
+local navic = require("nvim-navic")
 
 local jdtls = require("jdtls")
 
@@ -66,12 +68,16 @@ local config = {
     map_w_opts("v", "<space>rm", function() jdtls.extract_constant(true) end, "Extract Method")
 
     -- This requires java-debug and vscode-java-test bundles
-    map_w_opts("n", "<leader>df", require'jdtls'.test_class, "Test Class")
-    map_w_opts("n", "<leader>dn", require'jdtls'.test_nearest_method, "Test Nearest Method")
+    map_w_opts("n", "<leader>df", require 'jdtls'.test_class, "Test Class")
+    map_w_opts("n", "<leader>dn", require 'jdtls'.test_nearest_method, "Test Nearest Method")
 
     jdtls.setup_dap({
       hotcodereplace = "auto"
     })
+
+    if client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, bufnr)
+    end
   end,
 
   -- 💀
@@ -82,7 +88,28 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-    }
+      eclipse = { downloadSources = true },
+      maven = { downloadSources = true },
+      implementationsCodeLens = { enabled = true },
+      referencesCodeLens = { enabled = true },
+      references = { includeDecompiledSources = true },
+      format = {
+        enabled = true,
+        settings = {
+          url = vim.fn.expand("$HOME/.config/nvim/lang_servers/pavlo_skobnikov_style.xml"),
+          profile = "PavloSkobnikovFormattingStyle",
+        },
+      },
+    },
+
+    signatureHelp = { enabled = true },
+
+    codeGeneration = {
+      toString = {
+        template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+      },
+      useBlocks = true,
+    },
   },
 
   -- Language server `initializationOptions`
@@ -99,3 +126,4 @@ local config = {
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 jdtls.start_or_attach(config)
+

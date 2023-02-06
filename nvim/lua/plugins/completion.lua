@@ -1,6 +1,18 @@
+-- Description: Everything related to completion i.e. completion engine, sources, snippets, etc.
 return {
   { -- Completion engine
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp",
+      "onsails/lspkind-nvim",
+      "tamago324/cmp-zsh",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+      "github/copilot.vim",
+    },
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
@@ -25,15 +37,11 @@ return {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           }, { "i", "c" }),
-          ["<C-S-y>"] = cmp.mapping(cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-          }, { "i", "c" }),
 
           ["<C-space>"] = cmp.mapping {
             ---@diagnostic disable: missing-parameter
             i = cmp.mapping.complete(),
-            c = function( _ --[[fallback]])
+            c = function(_ --[[fallback]])
               if cmp.visible() then
                 if not cmp.confirm { select = true } then
                   return
@@ -78,10 +86,6 @@ return {
           documentation = cmp.config.window.bordered(),
         },
 
-        experimental = {
-          -- Cool text preview in the editor
-          ghost_text = true,
-        },
       }
 
       -- Use buffer source for searches `/` and `?`.
@@ -108,12 +112,40 @@ return {
       })
     end,
   },
-  { "hrsh7th/cmp-buffer" }, -- Current buffer completions
-  { "hrsh7th/cmp-path" }, -- Directory/file path completions
-  { "hrsh7th/cmp-nvim-lua" }, -- Special NeoVim-aware Lua completions
-  { "hrsh7th/cmp-nvim-lsp" }, -- LSP-integration completions
-  { "onsails/lspkind-nvim" }, -- VSCode-style completion kinds
-  { "tamago324/cmp-zsh" }, -- Zsh completions Zsp
-  { "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } }, -- Snippet engine
-  { "rafamadriz/friendly-snippets" } -- A bunch of snippets to use
+  { -- Current buffer completions
+    'hrsh7th/cmp-buffer',
+  },
+  { -- Directory/file path completions
+    'hrsh7th/cmp-path',
+  },
+  { -- Special NeoVim-aware Lua completions
+    'hrsh7th/cmp-nvim-lua',
+  },
+  { -- LSP-integration completions
+    'hrsh7th/cmp-nvim-lsp',
+  },
+  { -- VSCode-style completion kinds
+    'onsails/lspkind-nvim',
+  },
+  { -- Zsh completions Zsp
+    'tamago324/cmp-zsh',
+  },
+  { -- Snippet engine
+    'saadparwaiz1/cmp_luasnip',
+    dependencies = { "L3MON4D3/LuaSnip" },
+  },
+  { -- A bunch of snippets to use
+    'rafamadriz/friendly-snippets',
+  },
+  { -- AI-powered code completion
+    'github/copilot.vim',
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      -- Bring up the suggestions panel
+      vim.keymap.set("n", "<C-;>", ":Copilot panel<CR>", { noremap = true, silent = true })
+      vim.keymap.set("i", "<C-;>", "<ESC>:Copilot panel<CR>", { noremap = true, silent = true })
+    end,
+  }
 }
+

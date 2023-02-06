@@ -1,8 +1,9 @@
+-- Description: Telescope configuration
 return {
-  {
+  { -- An incredibly extendable fuzzy finder over lists
     "nvim-telescope/telescope.nvim", branch = "0.1.x",
     dependencies = {
-      {"nvim-lua/plenary.nvim"}
+      { "nvim-lua/plenary.nvim" }
     },
     cmd = { "Telescope", "Tel" }, -- Lazy loads on these commands
     keys = { "<leader>f" }, -- Lazy loads on this pattern
@@ -84,22 +85,22 @@ return {
         },
       })
 
-      local builtin = require('telescope.builtin') -- For access to Telescope function and further key map assignments
+      -- For access to Telescope function and further key map assignments
+      local builtin = require('telescope.builtin')
 
+      -- Telescope main commands
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find Files" })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Find Text in Files" })
       vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = "Find Recent Buffer" })
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "Find Documentation Help" })
-    end,
-  },
-  { -- File browser extension for Telescope
-    "nvim-telescope/telescope-file-browser.nvim",
-    config = function()
-      local telescope = require("telescope")
 
-      vim.keymap.set("n", "<leader>e", telescope.extensions.file_browser.file_browser, { noremap = true, desc = "Open Explorer" })
+      -- Git-related Telescope commands
+      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = "Git Status" })
+      vim.keymap.set('n', '<leader>gS', builtin.git_stash, { desc = "Git Stash" })
+      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = " Git Commits" })
+      vim.keymap.set('n', '<leader>gC', builtin.git_bcommits, { desc = "Current File Commits" })
 
-      telescope.load_extension("file_browser")
+      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = " Branches" })
     end,
   },
   { -- UI picker extension for Telescope
@@ -119,3 +120,4 @@ return {
     end,
   },
 }
+

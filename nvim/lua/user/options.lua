@@ -12,13 +12,14 @@ local options = {
     "noinsert",
   },                                       -- A comma separated list of options for Insert mode completion
   conceallevel = 0,                        -- So that `` is visible in markdown files
+  colorcolumn = '100',                     -- Visual marker for column width
   fileencoding = "utf-8",                  -- The encoding written to a file
   hlsearch = true,                         -- Highlight all matches on previous search pattern
   ignorecase = true,                       -- Ignore case in search patterns
   mouse = "a",                             -- Allow the mouse to be used in neovim
   pumheight = 10,                          -- Pop up menu height
   showmode = false,                        -- We don't need to see things like -- INSERT -- Anymore
-  showtabline = 2,                         -- Always show tabs
+  showtabline = 1,                         -- Show tabs only when there are more than one
   smartcase = true,                        -- Smart case
   smartindent = true,                      -- Make indenting smarter again
   splitbelow = true,                       -- Force all horizontal splits to go below current window
@@ -43,7 +44,6 @@ local options = {
   list = true,                             -- Enable displaying hidden characters
   listchars = {
     tab = ">·",
-    leadmultispace = "⎸ ",
     extends = '⟩',
     precedes = '⟨',
     trail = '·',
@@ -64,3 +64,4 @@ end
 o.shortmess:append "c"                           -- Don't give |ins-completion-menu| messages
 o.iskeyword:append "-"                           -- Hyphenated words recognized by searches
 o.formatoptions:remove({ "c", "r", "o" })        -- Don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
+

@@ -1,5 +1,6 @@
+-- Description: Plugin for dynamically showing key mappings
 return {
-  { -- Pop up window pluing showing key mappings
+  { -- The popup menu plugin
     "folke/which-key.nvim",
     config = function()
       -- Set a delay for the popup to...well...pop up
@@ -8,19 +9,21 @@ return {
 
       local which_key = require("which-key")
 
+
       -- Used only for setting groups
       which_key.register({
-        f = { name = "find"},
-        ["<space>"] = { name = "easy-motion"},
-        t = { name = "toggle"},
-        h = { name = "hunks"},
-        g = {
-          name = "git",
-          d = { name = "diff" }
-        },
-        r = { name = "refactor", },
-        w = { name = "workspace", },
+        ["<space>"] = { name = "easy-motion" },
+        ["\\"] = { name = "terminal" },
+        f = { name = "find/replace" },
+        T = { name = "toggle" },
+        t = { name = "tests" },
+        h = { name = "hunks" },
+        g = { name = "git" },
+        p = { name = "projects" },
+        r = { name = "refactor" },
+        w = { name = "workspace" },
       }, { prefix = "<leader>" })
     end,
   },
 }
+
