@@ -1,0 +1,685 @@
+" -> https://github.com/JetBrains/ideavim/wiki
+""""" OPTIONS
+
+" <SPC> as the leader key
+let mapleader = " "
+
+" Show Current Vim Mode
+set showmode
+
+" Use the Clipboard Register '*' for All Yank, Delete, Change and Put Operations
+" (-> which would normally go to the unnamed register)
+set clipboard+=unnamed
+
+" Search as Characters are Entered
+set incsearch
+
+" Highlight Search Results
+set hlsearch
+
+" Case-sensitive Search Only on Present Upper Letters
+set ignorecase
+set smartcase
+
+" Relative Numbers Only Club
+set relativenumber
+
+""""" PLUGINS & RELATED SETTINGS
+
+"" PLUGIN
+" Enable which-key extension
+set which-key
+
+" Disable which-key timeout, i.e. show the menu until you press a key
+set notimeout
+
+" Show the menu also for default Vim actions like `gg` or `zz`.
+let g:WhichKey_ShowVimActions = "false"
+
+"" PLUGIN
+" Vim Movement in the Project View
+" -> https://github.com/JetBrains/ideavim/wiki/NERDTree-support
+set NERDTree
+
+"" PLUGIN
+" Emulate vim-surround. Commands: ys, cs, ds
+" -> https://github.com/tpope/vim-surround/blob/master/doc/surround.txt
+set surround
+
+let g:WhichKeyDesc_SurroundAdd = "ys +add-surround"
+let g:WhichKeyDesc_SurroundChange = "cs +change-surround"
+let g:WhichKeyDesc_SurroundDelete = "ds +delete-surround"
+
+"" PLUGIN
+" Add text object for entire buffer: ae (around buffer), ie (inside buffer)
+set textobj-entire
+
+" Replace with register content shortcut: https://github.com/vim-scripts/ReplaceWithRegister
+set ReplaceWithRegister
+
+let g:WhichKeyDesc_ReplaceWithRegister = "gr +replace"
+let g:WhichKeyDesc_ReplaceWithRegister_Selection = "grr Replace Selection"
+
+""""" MAPPINGS
+"""" FIRST-LEVEL MAPPINGS
+""" NORMAL
+
+" Hungry Backspace
+nnoremap <C-BS> :action EditorHungryBackSpace<CR>
+
+" Remove Highlights on <ESC>
+nnoremap <ESC> :noh<CR>
+
+" Easier Window Navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" x and X Copy Into Throwaway Register `_`
+nnoremap x \"_x
+nnoremap X \"_X
+
+" Get Minimal Parameter Info
+nnoremap <C-S-k> :action ParameterInfo<CR>
+
+" Jump w/ Cursor
+nnoremap s :action AceAction<CR>
+nnoremap S :action AceLineAction<CR>
+
+" Show Paste Ring
+nnoremap "" :action PasteMultiple<CR>
+
+""" VISUAL
+
+" Stay in indent mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Jump w/ Cursor
+vnoremap s :action AceAction<CR>
+vnoremap S :action AceLineAction<CR>
+
+" Show Paste Ring
+vnoremap "" :action PasteMultiple<CR>
+
+""" INSERT
+
+" Hungry Backspace
+inoremap <C-BS> <Esc>:action EditorHungryBackSpace<CR>i
+
+" Go to First Character
+inoremap <C-a> <Esc>I
+cnoremap <C-a> <Home>
+
+" Go to End of Line
+inoremap <C-e> <Esc>A
+cnoremap <C-e> <End>
+
+" Go Up
+inoremap <C-p> <up>
+
+" Go Down
+inoremap <C-n> <down>
+
+" Go Right
+inoremap <C-f> <right>
+
+" Go Left
+inoremap <C-b> <left>
+
+" Delete to Line End
+inoremap <C-k> <Esc>:action EditorDeleteToLineEnd<CR>a
+
+" Go to Next Word
+inoremap <C-M-f> <Esc>:action EditorNextWord<CR>a
+
+" Go to Next Word in the Relevant Case Mode
+inoremap <C-S-f> <Esc>:action EditorNextWordInDifferentHumpsMode<CR>a
+
+" Go to Previous Word
+inoremap <C-M-b> <Esc>:action EditorPreviousWord<CR>i
+
+" Go to Previous Word in the Relevant Case Mode
+inoremap <C-S-b> <Esc>:action EditorPreviousWordInDifferentHumpsMode<CR>i
+
+" Get Minimal Parameter Info
+inoremap <C-S-k> :action ParameterInfo<CR>
+
+""" g MAPPINGS
+
+let g:WhichKeyDesc_GoTo_CommentByLineComment = "gc Comment by Line Comment"
+nnoremap gc :action CommentByLineComment<CR>
+vnoremap gc :action CommentByLineComment<CR>
+
+let g:WhichKeyDesc_GoTo_CommentByBlockComment = "gb Comment by Block Comment"
+nnoremap gb :action CommentByBlockComment<CR>
+vnoremap gb :action CommentByBlockComment<CR>
+
+let g:WhichKeyDesc_GoTo_JumpToClass = "gC Go to Class"
+nnoremap gC :action GotoClass<CR>
+vnoremap gC :action GotoClass<CR>
+
+let g:WhichKeyDesc_GoTo_Locations = "gl Go to Recent Location"
+nnoremap gl :action RecentLocations<CR>
+vnoremap gl :action RecentLocations<CR>
+
+let g:WhichKeyDesc_GoTo_RecentChanges = "gL Go to Recent Changed Locations"
+nnoremap gL   :action RecentChanges<CR>
+vnoremap gL   :action RecentChanges<CR>
+
+let g:WhichKeyDesc_GoTo_QuickImplementations = "gi Go to Implementation"
+nnoremap gi :action QuickImplementations<CR>
+vnoremap gi <Esc>:action QuickImplementations<CR>
+
+let g:WhichKeyDesc_GoTo_CallHierarchy = "gI Go to Incoming Calls"
+nnoremap gI :action CallHierarchy<CR>
+vnoremap gI <Esc>:action CallHierarchy<CR>
+
+let g:WhichKeyDesc_GoTo_FindUsages = "gR Go to References"
+nnoremap gR :action FindUsages<CR>
+vnoremap gR :action FindUsages<CR>
+
+let g:WhichKeyDesc_GoTo_FileStructurePopup = "gs Go to Buffer Symbol"
+nnoremap gs :action FileStructurePopup<CR>
+vnoremap gs :action FileStructurePopup<CR>
+
+let g:WhichKeyDesc_GoTo_GotoSymbol = "gS Go to Symbol in Project"
+nnoremap gS :action GotoSymbol<CR>
+vnoremap gS :action GotoSymbol<CR>
+
+let g:WhichKeyDesc_GoTo_GotoTest = "gT Go to Test/Implementation"
+nnoremap gT :action GotoTest<CR>
+vnoremap gT :action GotoTest<CR>
+
+let g:WhichKeyDesc_GoTo_GotoTypeDeclaration = "gt Go to Type Declaration for Symbol"
+nnoremap gt :action GotoTypeDeclaration<CR>
+vnoremap gt <Esc>:action GotoTypeDeclaration<CR>
+
+let g:WhichKeyDesc_GoTo_CodeBlockStart = "g[ Go to Code Block Start"
+nnoremap g[ :action EditorCodeBlockStart<CR>
+vnoremap g[ <Esc>:action EditorCodeBlockStart<CR>
+
+let g:WhichKeyDesc_GoTo_CodeBlockEnd = "g] Go to Code Block End"
+nnoremap g] :action EditorCodeBlockEnd<CR>
+vnoremap g] <Esc>:action EditorCodeBlockEnd<CR>
+
+""" [ and ] MAPPINGS
+
+let g:WhichKeyDesc_LeftSquareBracket_GotoPreviousError = "[d Prev Diagnostic"
+nnoremap [d :action GotoPreviousError<CR>
+vnoremap [d :action <ESC>GotoPreviousError<CR>
+
+let g:WhichKeyDesc_RightSquareBracket_GotoPreviousError = "]d Next Diagnostic"
+nnoremap ]d :action GotoNextError<CR>
+vnoremap ]d :action <ESC>GotoNextError<CR>
+
+let g:WhichKeyDesc_LeftSquareBracket_VcsShowPrevChangeMarker = "[h Prev Hunk/Change"
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+vnoremap [c :action <ESC>VcsShowPrevChangeMarker<CR>
+
+let g:WhichKeyDesc_RightSquareBracket_VcsShowNextChangeMarker = "]h Next Hunk/Change"
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+vnoremap ]c :action <ESC>VcsShowNextChangeMarker<CR>
+
+""" <leader> MAPPINGS
+
+let g:WhichKeyDesc_Leader_Space = "<leader><Space> Execute an Action"
+nnoremap <leader><Space> :action GotoAction<CR>
+vnoremap <leader><Space> :action GotoAction<CR>
+
+let g:WhichKeyDesc_Leader_ReformatCode = "<leader>= Reformat Code"
+nnoremap <leader>= :action ReformatCode<CR>
+vnoremap <leader>= :action ReformatCode<CR>
+
+let g:WhichKeyDesc_Leader_ActivateProjectToolWindow = "<leader>e Open Explorer"
+nnoremap <leader>e :action ActivateProjectToolWindow<CR>
+vnoremap <leader>e :action ActivateProjectToolWindow<CR>
+
+let g:WhichKeyDesc_Leader_SelectInProjectView = "<leader>E Open Explorer & Select Current File"
+nnoremap <leader>E :action SelectInProjectView<CR>
+vnoremap <leader>E :action SelectInProjectView<CR>
+
+let g:WhichKeyDesc_Leader_ShowErrorDescription = "<leader>x Explain Error"
+nnoremap <leader>x :action ShowErrorDescription<CR>
+vnoremap <leader>x :action ShowErrorDescription<CR>
+
+let g:WhichKeyDesc_Leader_ShowIntentionActions = "<leader>q Quick Fix/Contextual Actions"
+nnoremap <leader>q :action ShowIntentionActions<CR>
+vnoremap <leader>q :action ShowIntentionActions<CR>
+
+let g:WhichKeyDesc_Leader_ActivateProblemsViewToolWindow = "<leader>Q Show Diagnostics Tool Window"
+nnoremap <leader>Q :action ActivateProblemsViewToolWindow<CR>
+vnoremap <leader>Q :action ActivateProblemsViewToolWindow<CR>
+
+""" NESTED <leader> MAPPINGS
+
+
+""" <leader>b MAPPINGS -> Bookmarks
+let g:WhichKeyDesc_Bookmarks = "<leader>b +bookmarks"
+
+
+let g:WhichKeyDesc_Bookmarks_List = "<leader>bb List Bookmarks"
+nnoremap <leader>bl :action ShowBookmarks<CR>
+vnoremap <leader>bl :action ShowBookmarks<CR>
+
+let g:WhichKeyDesc_Bookmarks_ToggleMnemonic = "<leader>bm Toggle Mnemonic Bookmark"
+nnoremap <leader>bm :action ToggleBookmarkWithMnemonic<CR>
+vnoremap <leader>bm <Esc>:action ToggleBookmarkWithMnemonic<CR>
+
+let g:WhichKeyDesc_Bookmarks_Toggle = "<leader>bt Toggle Bookmark"
+nnoremap <leader>bt :action ToggleBookmark<CR>
+vnoremap <leader>bt :action ToggleBookmark<CR>
+
+
+""" <leader>B MAPPINGS -> Buffers
+let g:WhichKeyDesc_Buffers = "<leader>B +buffers"
+
+
+let g:WhichKeyDesc_Buffers_KillBuffer = "<leader>Bw Close Current Buffer"
+nnoremap <leader>Bw :action CloseContent<CR>
+vnoremap <leader>Bw <Esc>:action CloseContent<CR>
+
+let g:WhichKeyDesc_Buffers_MessagesBuffer = "<leader>Bm Show Event Log"
+nnoremap <leader>Bm :action ActivateEventLogToolWindow<CR>
+vnoremap <leader>Bm :action ActivateEventLogToolWindow<CR>
+
+let g:WhichKeyDesc_Buffers_ReopenLastKilledBuffer = "<leader>Bu Reopen Last Closed Tab"
+nnoremap <leader>Bu :action ReopenClosedTab<CR>
+vnoremap <leader>Bu <Esc>:action ReopenClosedTab<CR>
+
+let g:WhichKeyDesc_Buffers_CopyBuffer = "<leader>BY Copy Whole Buffer"
+nnoremap <leader>BY :%y<CR>
+vnoremap <leader>BY <Esc>:%y<CR>
+
+let g:WhichKeyDesc_Buffers_SelectBufferContents = "<leader>BV Select Whole Buffer"
+nnoremap <leader>BV ggVG<CR>
+vnoremap <leader>BV <Esc>ggVG<CR>
+
+
+""" <leader>d MAPPINGS -> Debug
+let g:WhichKeyDesc_Debug = "<leader>d +debug"
+
+
+let g:WhichKeyDesc_Debug_ViewBreakpoints = "<leader>dB View Breakpoints"
+nnoremap <leader>dB :action ViewBreakpoints<CR>
+vnoremap <leader>dB <Esc>:action ViewBreakpoints<CR>
+
+let g:WhichKeyDesc_Debug_ToggleBreakpoint = "<leader>db Toggle Breakpoint"
+nnoremap <leader>db :action ToggleLineBreakpoint<CR>
+vnoremap <leader>db <Esc>:action ToggleLineBreakpoint<CR>
+
+let g:WhichKeyDesc_Debug_ClearAllBreakpoints = "<leader>dC Clear All Breakpoints"
+nnoremap <leader>dC :action Debugger.RemoveAllBreakpointsInFile<CR>
+vnoremap <leader>dC <Esc>:action Debugger.RemoveAllBreakpointsInFile<CR>
+
+let g:WhichKeyDesc_Debug_Continue = "<leader>dc Continue (Go to Next Breakpoint)"
+nnoremap <leader>dc :action Resume<CR>
+vnoremap <leader>dc <Esc>:action Resume<CR>
+
+let g:WhichKeyDesc_Debug_DebugClass = "<leader>dD Debug Class"
+nnoremap <leader>dD :action DebugClass<CR>
+vnoremap <leader>dD <Esc>:action DebugClass<CR>
+
+let g:WhichKeyDesc_Debug_Debug = "<leader>dd Debug"
+nnoremap <leader>dd :action Debug<CR>
+vnoremap <leader>dd <Esc>:action Debug<CR>
+
+let g:WhichKeyDesc_Debug_StepOver = "<leader>dn Next (Step Over)"
+nnoremap <leader>dn :action StepOver<CR>
+vnoremap <leader>dn <Esc>:action StepOver<CR>
+
+let g:WhichKeyDesc_Debug_StepOut = "<leader>do Step Out"
+nnoremap <leader>do :action StepOut<CR>
+vnoremap <leader>do <Esc>:action StepOut<CR>
+
+let g:WhichKeyDesc_Debug_SelectDebugConfiguration = "<leader>dr Select Configuration and Debug"
+nnoremap <leader>dr :action ChooseDebugConfiguration<CR>
+vnoremap <leader>dr <Esc>:action ChooseDebugConfiguration<CR>
+
+let g:WhichKeyDesc_Debug_StepInto = "<leader>di Step Into"
+nnoremap <leader>di :action StepInto<CR>
+vnoremap <leader>di <Esc>:action StepInto<CR>
+
+
+""" <leader>f MAPPINGS -> Find/Replace
+let g:WhichKeyDesc_FindReplace = "<leader>f +find/replace"
+
+
+let g:WhichKeyDesc_FindReplace_ClearHighlight = "<leader>fc Clear Search Highlights"
+nnoremap <leader>fc :nohlsearch<CR>
+vnoremap <leader>fc <Esc>:nohlsearch<CR>
+
+let g:WhichKeyDesc_FindReplace_SearchEverywhere = "<leader>fa Find Anything"
+nnoremap <leader>fa :action SearchEverywhere<CR>
+vnoremap <leader>fa :action SearchEverywhere<CR>
+
+let g:WhichKeyDesc_FindReplace_GotoFile = "<leader>ff Find Files"
+nnoremap <leader>ff :action GotoFile<CR>
+vnoremap <leader>ff :action GotoFile<CR>
+
+let g:WhichKeyDesc_FindReplace_SearchProject = "<leader>fg Find Text in Project"
+nnoremap <leader>fg :action FindInPath<CR>
+vnoremap <leader>fg :action FindInPath<CR>
+
+let g:WhichKeyDesc_FindReplace_FindInFile = "<leader>fs Search in Current File Using Intellij Search"
+nnoremap <leader>fs :action Find<CR>
+vnoremap <leader>fs :action Find<CR>
+
+let g:WhichKeyDesc_FindReplace_HighlightUsages = "<leader>fh Highlight Current Symbol"
+nnoremap <leader>fh :action HighlightUsagesInFile<CR>
+vnoremap <leader>fh <Esc>:action HighlightUsagesInFile<CR>
+
+let g:WhichKeyDesc_FindReplace_ReplaceInFile = "<leader>fr Replace File"
+nnoremap <leader>fr :action Replace<CR>
+vnoremap <leader>fr :action Replace<CR>
+
+let g:WhichKeyDesc_FindReplace_ReplaceInFiles = "<leader>fR Replace in Project"
+nnoremap <leader>fR :action ReplaceInPath<CR>
+vnoremap <leader>fR :action ReplaceInPath<CR>
+
+
+""" <leader>F MAPPINGS -> Files
+let g:WhichKeyDesc_Files = "<leader>F +files"
+
+
+let g:WhichKeyDesc_Files_Rename = "<leader>FR Rename File"
+nnoremap <leader>FR :action RenameFile<CR>
+vnoremap <leader>FR :action RenameFile<CR>
+
+let g:WhichKeyDesc_Files_Recent = "<leader>Fr Recent Files"
+nnoremap <leader>Fr :action RecentFiles<CR>
+vnoremap <leader>Fr :action RecentFiles<CR>
+
+let g:WhichKeyDesc_Files_YankCopy_FilePath = "<leader>Fy Copy File Path"
+nnoremap <leader>Fy :action CopyAbsolutePath<CR>
+vnoremap <leader>Fy :action CopyAbsolutePath<CR>
+
+let g:WhichKeyDesc_Files_NewElement = "<leader>Fn Create a New Element"
+nnoremap <leader>Fn :action NewElement<CR>
+vnoremap <leader>Fn :action NewElement<CR>
+
+
+""" <leader>g MAPPINGS -> Git
+let g:WhichKeyDesc_Git = "<leader>g +git"
+
+
+let g:WhichKeyDesc_Git_Clone = "<leader>gc Clone"
+nnoremap <leader>gc    :action Git.Clone<CR>
+vnoremap <leader>gc    :action Git.Clone<CR>
+
+let g:WhichKeyDesc_Git_Init = "<leader>gi Init"
+nnoremap <leader>gi    :action Git.Init<CR>
+vnoremap <leader>gi    :action Git.Init<CR>
+
+let g:WhichKeyDesc_Git_Status = "<leader>gs Show Local Changes"
+nnoremap <leader>gs    :action Vcs.Show.Local.Changes<CR>
+vnoremap <leader>gs    :action Vcs.Show.Local.Changes<CR>
+
+let g:WhichKeyDesc_Git_Shelf = "<leader>gS Show shelf"
+nnoremap <leader>gS    :action Vcs.Show.Shelf<CR>
+vnoremap <leader>gS    :action Vcs.Show.Shelf<CR>
+
+let g:WhichKeyDesc_Git_Branches = "<leader>gb Branches"
+nnoremap <leader>gb    :action Git.Branches<CR>
+vnoremap <leader>gb    :action Git.Branches<CR>
+
+let g:WhichKeyDesc_Git_ShowWindow = "<leader>gG Show Version Control Tool Window"
+nnoremap <leader>gG    :action ActivateVersionControlToolWindow<CR>
+vnoremap <leader>gG    :action ActivateVersionControlToolWindow<CR>
+
+let g:WhichKeyDesc_Git_Vcs_Log = "<leader>gl Show Log"
+nnoremap <leader>gl    :action Vcs.Show.Log<CR>
+vnoremap <leader>gl    :action Vcs.Show.Log<CR>
+
+let g:WhichKeyDesc_Git_File_Log = "<leader>gL Show Log of Current File"
+nnoremap <leader>gL    :action Vcs.ShowTabbedFileHistory<CR>
+vnoremap <leader>gL    :action Vcs.ShowTabbedFileHistory<CR>
+
+let g:WhichKeyDesc_Git_SelectOperation = "<leader>gg Select a VCS operation"
+nnoremap <leader>gg    :action Vcs.QuickListPopupAction<CR>
+vnoremap <leader>gg    :action Vcs.QuickListPopupAction<CR>
+
+let g:WhichKeyDesc_Git_Push = "<leader>gp Push"
+nnoremap <leader>gp    :action Vcs.Push<cr>
+vnoremap <leader>gp    :action Vcs.Push<cr>
+
+let g:WhichKeyDesc_Git_Vcs_Pull = "<leader>gP Update Project"
+nnoremap <leader>gP    :action Vcs.UpdateProject<CR>
+vnoremap <leader>gP    :action Vcs.UpdateProject<CR>
+
+let g:WhichKeyDesc_Git_Vcs_Annotate = "<leader>gb Blame"
+nnoremap <leader>gb    :action Annotate<CR>
+vnoremap <leader>gb    :action Annotate<CR>
+
+
+""" <leader>H MAPPINGS -> Help
+let g:WhichKeyDesc_Help = "<leader>h +help"
+
+
+let g:WhichKeyDesc_Help_InspectionSettings = "<leader>Hi Open Inspection Settings"
+nnoremap <leader>Hi :action PopupHector<CR>
+vnoremap <leader>Hi :action PopupHector<CR>
+
+let g:WhichKeyDesc_Help_ShowKeyBindings = "<leader>Hk Show Key Bindings"
+nnoremap <leader>Hk     :map<CR>
+vnoremap <leader>Hk     <Esc>:map<CR>
+
+let g:WhichKeyDesc_Help_DescribeKeyBindings = "<leader>Hd Describe Bindings"
+nnoremap <leader>Hd    :map<CR>
+vnoremap <leader>Hd    <Esc>:map<CR>
+
+let g:WhichKeyDesc_Help_PluginDevelopment = "<leader>Hp JetBrains Plugins Repository"
+nnoremap <leader>Hp    :action WelcomeScreen.DevelopPlugins<CR>
+vnoremap <leader>Hp    :action WelcomeScreen.DevelopPlugins<CR>
+
+let g:WhichKeyDesc_Help_ContextualHelpAlt = "<leader>H<Space> Visit Intellij Documentation Website"
+nnoremap <leader>H<Space>    :action ContextHelp<CR>
+vnoremap <leader>H<Space>    :action ContextHelp<CR>
+
+let g:WhichKeyDesc_Help_ShowActionList = "<leader>Ha Show Action List"
+nnoremap <leader>Ha    :actionlist<CR>
+vnoremap <leader>Ha    <Esc>:actionlist<CR>
+
+let g:WhichKeyDesc_Help_Settings = "<leader>Hs Show Settings"
+nnoremap <leader>Hs    :action ShowSettings<CR>
+vnoremap <leader>Hs    <Esc>:action ShowSettings<CR>
+
+let g:WhichKeyDesc_Help_ReloadIdeaVimRc = "<leader>HR Reload .ideavimrc"
+nnoremap <leader>HR    :source ~/.ideavimrc<CR>
+vnoremap <leader>HR    <Esc>:source ~/.ideavimrc<CR>
+
+""" <leader>l MAPPINGS -> LSP
+let g:WhichKeyDesc_Lsp = "<leader>l +lsp"
+
+let g:WhichKeyDesc_Lsp_ListErrors = "<leader>le List Errors"
+nnoremap <leader>le :action CodeInspection.OnEditor<CR>
+vnoremap <leader>le :action CodeInspection.OnEditor<CR>
+
+let g:WhichKeyDesc_Lsp_InheritanceHierarchy = "<leader>lH Inheritance Hierarchy"
+nnoremap <leader>lH :action TypeHierarchy<CR>
+vnoremap <leader>lH <Esc>:action TypeHierarchy<CR>
+
+let g:WhichKeyDesc_Lsp_CreateConstructor = "<leader>lc Create Constructor"
+nnoremap <leader>lc :action GenerateConstructor<CR>
+vnoremap <leader>lc <Esc>:action GenerateConstructor<CR>
+
+let g:WhichKeyDesc_Lsp_CodeCleanup = "<leader>lC Clean Code Up"
+nnoremap <leader>lC :action CodeCleanup<CR>
+vnoremap <leader>lC :action CodeCleanup<CR>
+
+let g:WhichKeyDesc_Lsp_QuickListPopupAction = "<leader>lr Refactor This"
+nnoremap <leader>lr :action Refactorings.QuickListPopupAction<CR>
+vnoremap <leader>lr <Esc>:action Refactorings.QuickListPopupAction<CR>
+
+let g:WhichKeyDesc_Lsp_RunInspectionByName = "<leader>lR Run Inspection by Name"
+nnoremap <leader>lR :action RunInspection<CR>
+vnoremap <leader>lR <Esc>:action RunInspection<CR>
+
+let g:WhichKeyDesc_Lsp_Generate = "<leader>lg Generate"
+nnoremap <leader>lg :action Generate<CR>
+vnoremap <leader>lg <Esc>:action Generate<CR>
+
+let g:WhichKeyDesc_Lsp_ImplementMethods = "<leader>li Implement Methods"
+nnoremap <leader>li :action ImplementMethods<CR>
+vnoremap <leader>li <Esc>:action ImplementMethods<CR>
+
+let g:WhichKeyDesc_Lsp_InspectCode = "<leader>lI Inspect Code"
+nnoremap <leader>lI :action InspectCode<CR>
+vnoremap <leader>lI :action InspectCode<CR>
+
+let g:WhichKeyDesc_Lsp_OptimizeImports = "<leader>lo Organize Imports"
+nnoremap <leader>lo :action OptimizeImports<CR>
+vnoremap <leader>lo <Esc>:action OptimizeImports<CR>
+
+let g:WhichKeyDesc_Lsp_RenameSymbol = "<leader>ln Rename Symbol"
+nnoremap <leader>ln :action RenameElement<CR>
+vnoremap <leader>ln :action RenameElement<CR>
+
+let g:WhichKeyDesc_Lsp_NewElement = "<leader>lN Create a New Element"
+nnoremap <leader>lN :action NewElement<CR>
+vnoremap <leader>lN :action NewElement<CR>
+
+
+""" <leader>p MAPPINGS -> Projects
+let g:WhichKeyDesc_Projects = "<leader>p +projects"
+
+
+let g:WhichKeyDesc_Projects_NextProjectWindow = "<leader>pn Focus Next Project"
+nnoremap <leader>pn :action NextProjectWindow<CR>
+vnoremap <leader>pn :action NextProjectWindow<CR>
+
+let g:WhichKeyDesc_Projects_PreviousProjectWindow = "<leader>pp Focus Previous Project"
+nnoremap <leader>pp :action PreviousProjectWindow<CR>
+vnoremap <leader>pp :action PreviousProjectWindow<CR>
+
+let g:WhichKeyDesc_Projects_InvalidateCaches = "<leader>pi Invalidate Cache"
+nnoremap <leader>pi :action InvalidateCaches<CR>
+vnoremap <leader>pi :action InvalidateCaches<CR>
+
+let g:WhichKeyDesc_Projects_RecentProjects = "<leader>pr Recent Projects"
+nnoremap <leader>pr :action ManageRecentProjects<CR>
+vnoremap <leader>pr :action ManageRecentProjects<CR>
+
+""" SUBMENU
+let g:WhichKeyDesc_Projects_NewProject = "<leader>po +create"
+
+let g:WhichKeyDesc_Projects_NewProject_CreateProject = "<leader>poc Create New Project"
+nnoremap <leader>poc :action NewProject<CR>
+vnoremap <leader>poc :action NewProject<CR>
+
+let g:WhichKeyDesc_Projects_NewProject_ImportProjectFromFiles = "<leader>pof Import Project from Existing Files"
+nnoremap <leader>pof :action ImportProject<CR>
+vnoremap <leader>pof :action ImportProject<CR>
+
+let g:WhichKeyDesc_Projects_NewProject_ImportProjectFromVcs = "<leader>pog New Project From VCS"
+nnoremap <leader>pog :action ProjectFromVersionControl<CR>
+vnoremap <leader>pog :action ProjectFromVersionControlCR>
+
+""" SUBMENU
+let g:WhichKeyDesc_Projects_CloseProject = "<leader>pw +close"
+
+let g:WhichKeyDesc_Projects_CloseProject_CreateProject = "<leader>pwa Close All Projects"
+nnoremap <leader>pwa :action CloseAllProjects<CR>
+vnoremap <leader>pwa :action CloseAllProjects<CR>
+
+let g:WhichKeyDesc_Projects_CloseProject_ImportProjectFromFiles = "<leader>pwo Close All Other Projects"
+nnoremap <leader>pwo :action CloseOtherProjects<CR>
+vnoremap <leader>pwo :action CloseOtherProjects<CR>
+
+let g:WhichKeyDesc_Projects_CloseProject_ImportProjectFromVcs = "<leader>pwt Close This Project"
+nnoremap <leader>pwt :action CloseProject<CR>
+vnoremap <leader>pwt :action CloseProject>
+
+let g:WhichKeyDesc_Projects_CloseAllProjects = "<leader>pwq Exit (Close All Projects)"
+nnoremap <leader>pwq :action Exit<CR>
+vnoremap <leader>pwq <Esc>:action Exit<CR>
+
+let g:WhichKeyDesc_Projects_Restart = "<leader>pwr Restart"
+nnoremap <leader>pwr :action RestartIde<CR>
+vnoremap <leader>pwr <Esc>:action RestartIde<CR>
+
+
+""" <leader>r MAPPINGS -> Run
+let g:WhichKeyDesc_Run = "<leader>r +run"
+
+
+let g:WhichKeyDesc_Run_Run = "<leader>rr Run Current Configuration"
+nnoremap <leader>rr :action Run<CR>
+vnoremap <leader>rr :action Run<CR>
+
+let g:WhichKeyDesc_Run_Anything = "<leader>ra Run Anything"
+nnoremap <leader>ra :action RunAnything<CR>
+vnoremap <leader>ra :action RunAnything<CR>
+
+let g:WhichKeyDesc_Run_Class = "<leader>rc Run Class (Under Cursor)"
+nnoremap <leader>rc :action RunClass<CR>
+vnoremap <leader>rc :action RunClass<CR>
+
+let g:WhichKeyDesc_Run_Kill = "<leader>rk Kill (Stop application)"
+nnoremap <leader>rk :action Stop<CR>
+vnoremap <leader>rk :action Stop<CR>
+
+let g:WhichKeyDesc_Run_RerunTests = "<leader>rt Re-Run Tests"
+nnoremap <leader>rt :action RerunTests<CR>
+vnoremap <leader>rt <Esc>:action RerunTests<CR>
+
+let g:WhichKeyDesc_Run_SelectRunConfiguration = "<leader>rs Select Configuration and Run"
+nnoremap <leader>rs :action ChooseRunConfiguration<CR>
+vnoremap <leader>rs :action ChooseRunConfiguration<CR>
+
+
+""" <leader>T MAPPINGS -> Toggle
+let g:WhichKeyDesc_Toggles = "<leader>T +toggle"
+
+
+let g:WhichKeyDesc_Toggles_IndentLines = "<leader>Ti Toggle Show Indent Guide"
+nnoremap <leader>Ti :action EditorToggleShowIndentLines<CR>
+vnoremap <leader>Ti <Esc>:action EditorToggleShowIndentLines<CR>
+
+let g:WhichKeyDesc_Toggles_SoftWraps = "<leader>Tl Toggle Truncate Lines"
+nnoremap <leader>Tl :action EditorToggleUseSoftWraps<CR>
+vnoremap <leader>Tl :action EditorToggleUseSoftWraps<CR>
+
+let g:WhichKeyDesc_Toggles_LineNumbers = "<leader>Tn Toggle Line Numbers"
+nnoremap <leader>Tn :action EditorToggleShowLineNumbers<CR>
+vnoremap <leader>Tn :action EditorToggleShowLineNumbers<CR>
+
+let g:WhichKeyDesc_Toggles_RelativeLineNumbers = "<leader>Tr Toggle Relative Line Numbers"
+nnoremap <leader>Tr :set relativenumber!<CR>
+vnoremap <leader>Tr <Esc>:set relativenumber!<CR>
+
+let g:WhichKeyDesc_Toggles_ShowWhitespace = "<leader>Tw Toggle Show Whitespaces"
+nnoremap <leader>Tw :action EditorToggleShowWhitespaces<CR>
+vnoremap <leader>Tw :action EditorToggleShowWhitespaces<CR>
+
+let g:WhichKeyDesc_Toggles_GutterIcons = "<leader>Tg Toggle Gutter Icons"
+nnoremap <leader>Tg :action EditorToggleShowGutterIcons<CR>
+vnoremap <leader>Tg :action EditorToggleShowGutterIcons<CR>
+
+let g:WhichKeyDesc_Toggles_PowerSave = "<leader>Tp Toggle Power Save"
+nnoremap <leader>Tp :action TogglePowerSave<CR>
+vnoremap <leader>Tp :action TogglePowerSave<CR>
+
+let g:WhichKeyDesc_Toggles_EnableCopilot = "<leader>Tc Enable Copilot"
+nnoremap <leader>Tc :action copilot.enableCopilot<CR>
+vnoremap <leader>Tc :action copilot.enableCopilot<CR>
+
+let g:WhichKeyDesc_Toggles_DisableCopilot = "<leader>TC Disable Copilot"
+nnoremap <leader>TC :action copilot.disableCopilot<CR>
+vnoremap <leader>TC :action copilot.disableCopilot<CR>
+
+""" <leader>z MAPPINGS -> Zoom
+let g:WhichKeyDesc_Zoom = "<leader>z +zoom"
+
+let g:WhichKeyDesc_Zoom_IncreaseAlt = "<leader>z= Increase Font Size"
+nnoremap <leader>z= :action EditorIncreaseFontSize<CR>
+vnoremap <leader>z= :action EditorIncreaseFontSize<CR>
+
+let g:WhichKeyDesc_Zoom_Decrease = "<leader>z- Decrease Font Size"
+nnoremap <leader>z- :action EditorDecreaseFontSize<CR>
+vnoremap <leader>z- :action EditorDecreaseFontSize<CR>
+
+let g:WhichKeyDesc_Zoom_Reset = "<leader>z0 Reset Font Size"
+nnoremap <leader>z0 :action EditorResetFontSize<CR>
+vnoremap <leader>z0 :action EditorResetFontSize<CR>
