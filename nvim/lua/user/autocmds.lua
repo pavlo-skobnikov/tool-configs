@@ -15,15 +15,6 @@ local function remove_trailing_white_spaces()
   vim.cmd [[%s/\s\+$//e]]
 end
 
-local function add_blank_line_to_file_end_if_there_is_none()
-  local last_line = vim.fn.line("$")
-  local last_line_content = vim.fn.getline(last_line)
-
-  if (last_line_content ~= "" or last_line_content ~= "\n") then
-    vim.fn.append(last_line, "\n")
-  end
-end
-
 local function save_buffer()
   vim.api.nvim_command('silent update')
 end
@@ -39,7 +30,6 @@ autocmd({ "BufWritePre" }, {
   pattern = { "*" },
   callback = function()
     if file_should_be_edited() then
-      add_blank_line_to_file_end_if_there_is_none()
       remove_trailing_white_spaces()
     end
   end,
@@ -54,7 +44,6 @@ autocmd({ "BufLeave", "FocusLost" }, {
       -- `pcall` is used to prevent errors from stopping the execution of the rest of the commands
       -- The calls may fail in some "special" buffers (like the one from `sindrets/diffview.nvim`)
       pcall(remove_trailing_white_spaces)
-      pcall(add_blank_line_to_file_end_if_there_is_none)
       pcall(save_buffer)
     end
   end,

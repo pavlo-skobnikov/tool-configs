@@ -50,7 +50,7 @@ return {
 
       local navic = require("nvim-navic")
 
-      local lsp_maps = require("user.lsp_maps")
+      local lsp_maps = require("shared.lsp_maps")
 
       lsp_maps.on_startup()
 

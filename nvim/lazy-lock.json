@@ -22,7 +22,7 @@
   "neo-tree.nvim": { "branch": "v2.x", "commit": "8238865e1d9c61f1a260c290653f2c419503e0a9" },
   "neodev.nvim": { "branch": "main", "commit": "e905fb76f78fa19500ca3b9fac256b057aad535a" },
   "neotest": { "branch": "master", "commit": "392808a91d6ee28d27cbfb93c9fd9781759b5d00" },
-  "neotest-java-gradle": { "branch": "main", "commit": "4d68b2a94382eaa36a508d5736d6ad86cfcfcdc3" },
+  "neotest-vim-test": { "branch": "master", "commit": "07f25ab7ba4e7646b38c84e10002b195a53b0096" },
   "nui.nvim": { "branch": "main", "commit": "b99e6cb13dc51768abc1c4c8585045a0c0459ef1" },
   "nvim-autopairs": { "branch": "master", "commit": "03580d758231956d33c8dd91e2be195106a79fa4" },
   "nvim-cmp": { "branch": "main", "commit": "11a95792a5be0f5a40bab5fc5b670e5b1399a939" },
@@ -39,6 +39,7 @@
   "nvim-ts-rainbow": { "branch": "master", "commit": "aa83e4967bf78f85ffd9a11e159900c7ea7e423b" },
   "nvim-web-devicons": { "branch": "master", "commit": "7f55bc36eddec87597167a97de5b690997edaf7d" },
   "onedark.nvim": { "branch": "master", "commit": "89dde4963ad198c9b6144dee3d5e8bcbb7559ddc" },
+  "orgmode": { "branch": "master", "commit": "7ddbdc0741fdc90f73faa17fb332bc8700acadbf" },
   "playground": { "branch": "master", "commit": "c19bcfd6a3681bc876e1b861f6685bfc04972d0d" },
   "plenary.nvim": { "branch": "master", "commit": "9d81624fbcedd3dd43b38d7e13a1e7b3f873d8cd" },
   "telescope-dap.nvim": { "branch": "master", "commit": "313d2ea12ae59a1ca51b62bf01fc941a983d9c9c" },
@@ -48,6 +49,6 @@
   "vim-fugitive": { "branch": "master", "commit": "99cdb88bc64063dc4656ae53496f06fb2a394cd4" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
+  "vim-test": { "branch": "master", "commit": "ca2502545a8c563e15f556d0eb8a59e0f74d2864" },
   "which-key.nvim": { "branch": "main", "commit": "e4fa445065a2bb0bbc3cca85346b67817f28e83e" }
 }
-

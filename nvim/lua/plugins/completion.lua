@@ -12,6 +12,7 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
       "github/copilot.vim",
+      "nvim-orgmode/orgmode",
     },
     config = function()
       local cmp = require("cmp")
@@ -69,6 +70,7 @@ return {
         -- Order for completion suggestions
         sources = {
           { name = "nvim_lua" },
+          { name = 'orgmode' },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },

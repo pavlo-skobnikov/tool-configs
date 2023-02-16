@@ -15,16 +15,11 @@ return {
     config = function()
       local neotest = require("neotest")
 
-      neotest.setup({
-        adapters = {
-          require("neotest-java-gradle")
-        }
-      })
-
       vim.keymap.set("n", "<leader>tr", function() neotest.run.run() end, { desc = "Run Nearest Test" })
       vim.keymap.set("n", "<leader>tR", function() neotest.run.run({ strategy = 'dap' }) end,
         { desc = "Run Nearest Test with DAP" })
-      vim.keymap.set("n", "<leader>tf", function() neotest.run.run(vim.fn.expand("%")) end, { desc = "Test Current File" })
+      vim.keymap.set("n", "<leader>tf", function() neotest.run.run(vim.fn.expand("%")) end,
+        { desc = "Test Current File" })
       vim.keymap.set("n", "<leader>ts", function() neotest.run.stop() end, { desc = "Stop Test" })
 
       vim.keymap.set("n", "<leader>to", function() neotest.output.open({ enter = true, short = false }) end,
