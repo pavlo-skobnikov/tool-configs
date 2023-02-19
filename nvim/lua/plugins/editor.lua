@@ -161,10 +161,10 @@ return {
 
       require("lualine").setup {
         winbar = {
-          lualine_c = {
+          lualine_a = {
             { navic.get_location, cond = navic.is_available },
           }
-        }
+        },
       }
 
       navic.setup {

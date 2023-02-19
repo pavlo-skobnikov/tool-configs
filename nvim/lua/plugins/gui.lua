@@ -16,7 +16,14 @@ return {
       lualine.setup {
         options = {
           theme = "codedark"
-        }
+        },
+
+        inactive_sections = {
+          -- Show inactive windows' number for easy switching
+          lualine_a = {
+            { function() return vim.api.nvim_win_get_number(0) end },
+          }
+        },
       }
     end,
   },
@@ -115,12 +122,6 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
-      require("nvim-treesitter.configs").setup {
-        indent = {
-          enable = true,
-        },
-      }
-
       require("indent_blankline").setup {
         indentLine_enabled = 1,
 
@@ -135,14 +136,16 @@ return {
           "mason",
           "",
         },
-
         buftype_exclude = { "terminal" },
+
         show_trailing_blankline_indent = false,
         show_first_indent_level = false,
         show_current_context = true,
-        show_current_context_start = true,
+        show_current_context_start = false,
+
+        use_treesitter = true,
+        use_treesitter_scope = true,
       }
     end,
   },
 }
-
