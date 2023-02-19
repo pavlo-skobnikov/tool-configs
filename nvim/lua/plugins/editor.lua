@@ -2,12 +2,21 @@
 return {
   { -- Cool surround actions for `cs`, `cS`, and `ds` mappings
     "tpope/vim-surround",
+    dependencies = {
+      "tpope/vim-repeat",
+    },
   },
-  { -- To allow repeating actions from previous plugins with .
-    "tpope/vim-repeat",
+  { -- Useful paired mappings
+    "tpope/vim-unimpaired",
+    dependencies = {
+      "tpope/vim-repeat",
+    },
   },
   { -- Easier movement with `s`, `S`, and `gs` bindings
     "ggandor/leap.nvim",
+    dependencies = {
+      "tpope/vim-repeat",
+    },
     config = function()
       require('leap').add_default_mappings()
     end,
@@ -198,14 +207,14 @@ return {
     config = function()
       local spectre = require('spectre')
 
-      vim.keymap.set({ 'n' }, '<leader>fr', function() spectre.open() end,
+      vim.keymap.set({ 'n' }, '<leader>rp', function() spectre.open() end,
         { silent = true, desc = "Search and Replace in Project" })
-      vim.keymap.set({ 'n' }, '<leader>fR', function() spectre.open_file_search() end,
+      vim.keymap.set({ 'n' }, '<leader>rf', function() spectre.open_file_search() end,
         { silent = true, desc = "Search and Replace in File" })
 
-      vim.keymap.set({ 'n' }, '<leader>fs', function() spectre.open_visual({ select_word = true }) end,
+      vim.keymap.set({ 'n' }, '<leader>rw', function() spectre.open_visual({ select_word = true }) end,
         { silent = true, desc = "Search Word and Replace" })
-      vim.keymap.set({ 'v' }, '<leader>fs', function() spectre.open_visual() end,
+      vim.keymap.set({ 'v' }, '<leader>rs', function() spectre.open_visual() end,
         { silent = true, desc = "Search Selection and Replace" })
 
       require('spectre').setup()
