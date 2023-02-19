@@ -14,13 +14,13 @@ return {
       which_key.register({
         ["<space>"] = { name = "easy-motion" },
         ["\\"] = { name = "terminal" },
-        f = { name = "find/replace" },
+        f = { name = "find" },
         T = { name = "toggle" },
         t = { name = "tests" },
         h = { name = "hunks" },
         g = { name = "git" },
         p = { name = "projects" },
-        r = { name = "refactor" },
+        r = { name = "replace" },
         w = { name = "workspace" },
       }, { prefix = "<leader>" })
     end,
