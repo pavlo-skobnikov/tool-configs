@@ -82,10 +82,10 @@ return {
 
             -- Capture groups defined in textobjects.scm are available for bindings
             swap_next = {
-              ["<leader>s"] = { query = "@swappable", desc = "Swap with Next" },
+              ["]s"] = { query = "@swappable", desc = "Swap with Next" },
             },
             swap_previous = {
-              ["<leader>S"] = { query = "@swappable", desc = "Swap with Prev" },
+              ["[s"] = { query = "@swappable", desc = "Swap with Prev" },
             },
           },
 
