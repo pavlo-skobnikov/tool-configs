@@ -16,7 +16,7 @@ end
 
 -- Use an on_attach function to only map the following keys
 --  after the language server attaches to the current buffer
-function M.on_attach(bufnr)
+function M.on_attach(client, bufnr)
   local map_w_buf_opts = utility_fns.create_mapping_fn_with_default_opts_and_desc(
     { noremap = true, silent = true, buffer = bufnr })
 
@@ -42,7 +42,7 @@ function M.on_attach(bufnr)
 
   map_w_buf_opts("n", "K", vim.lsp.buf.hover, "Show Documentation")
 
-  map_w_buf_opts({ "n", "i", "v" }, "<A-k>", vim.lsp.buf.signature_help, "Signature Help")
+  map_w_buf_opts({ "n", "i" }, "<A-k>", vim.lsp.buf.signature_help, "Signature Help")
 
   map_w_buf_opts("n", "<space>wa", vim.lsp.buf.add_workspace_folder, "Add Folder to Workspace")
   map_w_buf_opts("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, "Remove Folder from Workspace")
