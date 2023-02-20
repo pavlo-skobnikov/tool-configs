@@ -2,9 +2,6 @@
 return {
   { -- LSP extension for NeoVim-specific Lua development
     "folke/neodev.nvim",
-    dependencies = {
-      "nvim-neotest/neotest"
-    },
   },
   { -- Improvements for the Eclipse JDT Language Server
     "mfussenegger/nvim-jdtls",
@@ -42,10 +39,6 @@ return {
         },
 
         automatic_installation = false,
-      })
-
-      require("neodev").setup({
-        library = { plugins = { "neotest" }, types = true }
       })
 
       local navic = require("nvim-navic")
