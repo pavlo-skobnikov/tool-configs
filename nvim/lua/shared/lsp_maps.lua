@@ -40,6 +40,8 @@ function M.on_attach(client, bufnr)
   map_w_buf_opts("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
   map_w_buf_opts("n", "gd", builtin.lsp_definitions, "Go to Definition")
 
+  map_w_buf_opts("n", "gR", builtin.lsp_references, "Go to References")
+
   map_w_buf_opts("n", "K", vim.lsp.buf.hover, "Show Documentation")
 
   map_w_buf_opts({ "n", "i" }, "<A-k>", vim.lsp.buf.signature_help, "Signature Help")
@@ -54,8 +56,6 @@ function M.on_attach(client, bufnr)
 
   map_w_buf_opts("n", "<space>n", vim.lsp.buf.rename, "Rename")
   map_w_buf_opts("n", "<space>a", vim.lsp.buf.code_action, "Show Code Actions")
-
-  map_w_buf_opts("n", "g*", builtin.lsp_references, "Go to References")
 
   map_w_buf_opts({"n", "v"}, "<space>=", function() vim.lsp.buf.format { async = true } end, "Format Buffer")
 end

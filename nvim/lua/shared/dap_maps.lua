@@ -2,11 +2,6 @@ local M = {}
 
 local utility_fns = require("utility.functions")
 
-local builtin = require('telescope.builtin') -- For access to Telescope function and further key map assignments
-
-local map_w_opts = utility_fns.create_mapping_fn_with_default_opts_and_desc(
-  { noremap = true, silent = true })
-
 -- Use an on_attach function to only map the following keys
 --  after the language server attaches to the current buffer
 function M.on_attach(client, bufnr)
