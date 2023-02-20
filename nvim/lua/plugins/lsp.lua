@@ -1,53 +1,53 @@
 -- Description: Everything related to Language Server Protocol
 return {
   { -- LSP extension for NeoVim-specific Lua development
-    "folke/neodev.nvim",
+    'folke/neodev.nvim',
   },
   { -- Improvements for the Eclipse JDT Language Server
-    "mfussenegger/nvim-jdtls",
+    'mfussenegger/nvim-jdtls',
     dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "SmiteshP/nvim-navic",
+      'nvim-telescope/telescope.nvim',
+      'SmiteshP/nvim-navic',
     },
   },
   { -- Easily manage external editor tooling such as LSP servers,
     -- DAP servers, linters, and formatters through a single interface
-    "williamboman/mason.nvim",
+    'williamboman/mason.nvim',
   },
   { -- Bridges mason.nvim with the lspconfig plugin
     -- -> making it easier to use both plugins together
-    "williamboman/mason-lspconfig.nvim",
+    'williamboman/mason-lspconfig.nvim',
   },
   { -- Native LSP configuration for NeoVim
-    "neovim/nvim-lspconfig",
+    'neovim/nvim-lspconfig',
     dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "SmiteshP/nvim-navic",
+      'nvim-telescope/telescope.nvim',
+      'SmiteshP/nvim-navic',
     },
     config = function()
-      require("mason").setup()
-      require("mason-lspconfig").setup({
+      require('mason').setup()
+      require('mason-lspconfig').setup {
         ensure_installed = {
-          "sumneko_lua",
-          "jdtls",
-          "gradle_ls",
-          "dockerls",
-          "marksman",
-          "yamlls",
-          "jsonls",
-          "quick_lint_js"
+          'sumneko_lua',
+          'jdtls',
+          'gradle_ls',
+          'dockerls',
+          'marksman',
+          'yamlls',
+          'jsonls',
+          'quick_lint_js',
         },
 
         automatic_installation = false,
-      })
+      }
 
-      local navic = require("nvim-navic")
+      local navic = require 'nvim-navic'
 
-      local lsp_maps = require("shared.lsp_maps")
+      local lsp_maps = require 'shared.lsp_maps'
 
       lsp_maps.on_startup()
 
-      local lsp_config = require("lspconfig")
+      local lsp_config = require 'lspconfig'
 
       local on_attach = function(client, bufnr)
         lsp_maps.on_attach(client, bufnr)
@@ -57,35 +57,34 @@ return {
         end
       end
 
-      lsp_config.sumneko_lua.setup({
+      lsp_config.sumneko_lua.setup {
         on_attach = on_attach,
 
         settings = {
           Lua = {
             diagnostics = {
               globals = {
-                "vim",
-              }
-            }
-          }
-        }
-      })
+                'vim',
+              },
+            },
+          },
+        },
+      }
 
       lsp_config.gradle_ls.setup { on_attach = lsp_maps.on_attach }
       lsp_config.dockerls.setup { on_attach = lsp_maps.on_attach }
       lsp_config.marksman.setup { on_attach = lsp_maps.on_attach }
       lsp_config.yamlls.setup { on_attach = lsp_maps.on_attach }
       lsp_config.jsonls.setup { on_attach = lsp_maps.on_attach }
-    end
+    end,
   },
   { -- Debug Adapter Protocol client implementation
-    "mfussenegger/nvim-dap",
+    'mfussenegger/nvim-dap',
   },
   { -- A UI for nvim-dap
-    "rcarriga/nvim-dap-ui",
+    'rcarriga/nvim-dap-ui',
     dependencies = {
-      "mfussenegger/nvim-dap"
+      'mfussenegger/nvim-dap',
     },
   },
 }
-

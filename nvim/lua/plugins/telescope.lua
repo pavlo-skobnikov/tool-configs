@@ -1,25 +1,26 @@
 -- Description: Telescope configuration
 return {
   { -- An incredibly extendable fuzzy finder over lists
-    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
     dependencies = {
-      { 'nvim-lua/plenary.nvim' }
+      { 'nvim-lua/plenary.nvim' },
     },
     cmd = { 'Telescope', 'Tel' }, -- Lazy loads on these commands
     keys = { '<leader>f' }, -- Lazy loads on this pattern
     config = function()
-      local telescope = require('telescope')
-      local actions = require('telescope.actions')
-      local action_layout = require('telescope.actions.layout')
+      local telescope = require 'telescope'
+      local actions = require 'telescope.actions'
+      local action_layout = require 'telescope.actions.layout'
 
-      telescope.setup({
+      telescope.setup {
         defaults = { -- Default Telescope configurations to be applied for all searches
           prompt_prefix = ' ',
           selection_caret = ' ',
           dynamic_preview_title = true,
 
           path_display = {
-            'tail'
+            'tail',
           },
 
           layout_strategy = 'vertical',
@@ -102,10 +103,10 @@ return {
             },
           },
         },
-      })
+      }
 
       -- For access to Telescope function and further key map assignments
-      local builtin = require('telescope.builtin')
+      local builtin = require 'telescope.builtin'
 
       -- Telescope main commands
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'Resume Previous Find' })
@@ -115,11 +116,21 @@ return {
       vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find Recent Buffer' })
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Documentation Help' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Find Normal Mode Keymaps' })
-      vim.keymap.set('n', '<leader>fS', builtin.spell_suggest, { desc = 'Find Spelling Suggestion and Replace' })
+      vim.keymap.set(
+        'n',
+        '<leader>fS',
+        builtin.spell_suggest,
+        { desc = 'Find Spelling Suggestion and Replace' }
+      )
       vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = 'Find Command and Run' })
       vim.keymap.set('n', '<leader>fC', builtin.command_history, { desc = 'Find Previous Command' })
       vim.keymap.set('n', '<leader>fq', builtin.quickfix, { desc = 'Find in QuickFix List' })
-      vim.keymap.set('n', '<leader>fQ', builtin.quickfixhistory, { desc = 'Find from QuickFix History' })
+      vim.keymap.set(
+        'n',
+        '<leader>fQ',
+        builtin.quickfixhistory,
+        { desc = 'Find from QuickFix History' }
+      )
       vim.keymap.set('n', '<leader>fl', builtin.loclist, { desc = 'Find in Local List' })
       vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'Find in Registers' })
 
@@ -138,9 +149,9 @@ return {
       'nvim-telescope/telescope.nvim',
     },
     config = function()
-      local telescope = require('telescope')
+      local telescope = require 'telescope'
 
-      telescope.load_extension('ui-select')
+      telescope.load_extension 'ui-select'
     end,
   },
   { -- UI picker extension for DAP
@@ -150,9 +161,9 @@ return {
       'mfussenegger/nvim-dap',
     },
     config = function()
-      local telescope = require('telescope')
+      local telescope = require 'telescope'
 
-      telescope.load_extension('dap')
+      telescope.load_extension 'dap'
     end,
   },
 }

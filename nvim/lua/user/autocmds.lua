@@ -7,7 +7,7 @@ local augroup = api.nvim_create_augroup
 
 -- PREDICATES
 local function file_should_be_edited()
-  return (not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "")
+  return (not vim.bo.readonly and vim.fn.expand '%' ~= '' and vim.bo.buftype == '')
 end
 
 -- FUNCTIONS
@@ -16,29 +16,29 @@ local function remove_trailing_white_spaces()
 end
 
 local function save_buffer()
-  vim.api.nvim_command('silent update')
+  vim.api.nvim_command 'silent update'
 end
 
 local function check_if_files_were_changed_outside_nvim()
-  vim.cmd "checktime"
+  vim.cmd 'checktime'
 end
 
 -- AUTOCMDS
 -- -> look at `desc` field for more info
-autocmd({ "BufWritePre" }, {
-  group = augroup("RemoveTrailingWhiteSpaces", { clear = true }),
-  pattern = { "*" },
+autocmd({ 'BufWritePre' }, {
+  group = augroup('RemoveTrailingWhiteSpaces', { clear = true }),
+  pattern = { '*' },
   callback = function()
     if file_should_be_edited() then
       remove_trailing_white_spaces()
     end
   end,
-  desc = "Remove trailing white spaces on saving",
+  desc = 'Remove trailing white spaces on saving',
 })
 
-autocmd({ "BufLeave", "FocusLost" }, {
-  group = augroup("SaveBufferAutomatically", { clear = true }),
-  pattern = { "*" },
+autocmd({ 'BufLeave', 'FocusLost' }, {
+  group = augroup('SaveBufferAutomatically', { clear = true }),
+  pattern = { '*' },
   callback = function()
     if file_should_be_edited() then
       -- `pcall` is used to prevent errors from stopping the execution of the rest of the commands
@@ -47,13 +47,12 @@ autocmd({ "BufLeave", "FocusLost" }, {
       pcall(save_buffer)
     end
   end,
-  desc = "Remove trailing whitespaces and save buffer automatically on leaving it",
+  desc = 'Remove trailing whitespaces and save buffer automatically on leaving it',
 })
 
-autocmd("FocusGained", {
-  group = augroup("CheckFileForExternalChanges", { clear = true }),
-  pattern = { "*" },
+autocmd('FocusGained', {
+  group = augroup('CheckFileForExternalChanges', { clear = true }),
+  pattern = { '*' },
   callback = check_if_files_were_changed_outside_nvim,
-  desc = "Update file when there are changes",
+  desc = 'Update file when there are changes',
 })
-

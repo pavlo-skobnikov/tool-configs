@@ -1,7 +1,9 @@
 local function options(description)
-  if description == nil
-    then return { silent = true, noremap = false }
-    else return { silent = true, noremap = false, desc = description } end
+  if description == nil then
+    return { silent = true, noremap = false }
+  else
+    return { silent = true, noremap = false, desc = description }
+  end
 end
 
 -- Shorten key mapping function name
@@ -9,8 +11,8 @@ local map = vim.keymap.set
 
 --Remap space as leader key
 -- map("", "<Space>", "<Nop>", options())
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Modes -> for reference
 --   normal_mode = "n",
@@ -22,17 +24,17 @@ vim.g.maplocalleader = " "
 
 -- Normal
 -- Executing `x` on texts throws it into the void register
-map("n", "x", '"_x', options())
-map("n", "x", '"_x', options())
+map('n', 'x', '"_x', options())
+map('n', 'x', '"_x', options())
 
 -- Remove highlights on <ESC>
-map("n", "<ESC>", ":noh<CR>", options())
+map('n', '<ESC>', ':noh<CR>', options())
 
 -- Better window navigation
-map("n", "<C-h>", "<C-w>h", options())
-map("n", "<C-j>", "<C-w>j", options())
-map("n", "<C-k>", "<C-w>k", options())
-map("n", "<C-l>", "<C-w>l", options())
+map('n', '<C-h>', '<C-w>h', options())
+map('n', '<C-j>', '<C-w>j', options())
+map('n', '<C-k>', '<C-w>k', options())
+map('n', '<C-l>', '<C-w>l', options())
 
 -- Resize with arrows
 vim.cmd [[ nnoremap <A-=> :res -2<CR> ]]
@@ -41,30 +43,29 @@ vim.cmd [[ nnoremap <A-.> :vertical res -2<CR> ]]
 vim.cmd [[ nnoremap <A-,> :vertical res +2<CR> ]]
 
 -- Navigate buffers
-map("n", "<S-l>", ":bnext<CR>", options())
-map("n", "<S-h>", ":bprevious<CR>", options())
+map('n', '<S-l>', ':bnext<CR>', options())
+map('n', '<S-h>', ':bprevious<CR>', options())
 
 -- Visual
 -- Stay in indent mode
-map("v", "<", "<gv", options())
-map("v", ">", ">gv", options())
+map('v', '<', '<gv', options())
+map('v', '>', '>gv', options())
 
 -- Move text up and down
-map("v", "<A-j>", ":m .+1<CR>==", options())
-map("v", "<A-k>", ":m .-2<CR>==", options())
-map("v", "p", '"_dP', options())
+map('v', '<A-j>', ':m .+1<CR>==', options())
+map('v', '<A-k>', ':m .-2<CR>==', options())
+map('v', 'p', '"_dP', options())
 
 -- Visual Block
 -- Move text up and down
-map("x", "J", ":move '>+1<CR>gv-gv", options())
-map("x", "K", ":move '<-2<CR>gv-gv", options())
-map("x", "<A-j>", ":move '>+1<CR>gv-gv", options())
-map("x", "<A-k>", ":move '<-2<CR>gv-gv", options())
+map('x', 'J', ":move '>+1<CR>gv-gv", options())
+map('x', 'K', ":move '<-2<CR>gv-gv", options())
+map('x', '<A-j>', ":move '>+1<CR>gv-gv", options())
+map('x', '<A-k>', ":move '<-2<CR>gv-gv", options())
 
 -- Terminal
 -- Better terminal navigation
-map("t", "<C-h>", "<C-\\><C-N><C-w>h", { silent = true })
-map("t", "<C-j>", "<C-\\><C-N><C-w>j", { silent = true })
-map("t", "<C-k>", "<C-\\><C-N><C-w>k", { silent = true })
-map("t", "<C-l>", "<C-\\><C-N><C-w>l", { silent = true })
-
+map('t', '<C-h>', '<C-\\><C-N><C-w>h', { silent = true })
+map('t', '<C-j>', '<C-\\><C-N><C-w>j', { silent = true })
+map('t', '<C-k>', '<C-\\><C-N><C-w>k', { silent = true })
+map('t', '<C-l>', '<C-\\><C-N><C-w>l', { silent = true })

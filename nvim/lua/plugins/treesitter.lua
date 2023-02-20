@@ -1,34 +1,37 @@
 -- Description: Treesitter (parsing code as ASTs) configuration
 return {
   { -- Treesitter plugin itself
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
     config = function()
-      local configs = require("nvim-treesitter.configs")
+      local configs = require 'nvim-treesitter.configs'
 
-      configs.setup({
+      configs.setup {
         ensure_installed = {
           -- Required for Treesitter to function parsers
-          "c", "lua", "vim", "help",
+          'c',
+          'lua',
+          'vim',
+          'help',
           -- Additional parsers
-          "org", -- for "nvim-orgmode/orgmode
-          "query", -- for "nvim-treesitter/playground"
-          "http",
-          "comment",
-          "markdown",
-          "json",
-          "dockerfile",
-          "yaml",
-          "terraform",
-          "hcl",
+          'org', -- for "nvim-orgmode/orgmode
+          'query', -- for "nvim-treesitter/playground"
+          'http',
+          'comment',
+          'markdown',
+          'json',
+          'dockerfile',
+          'yaml',
+          'terraform',
+          'hcl',
           -- Git parsers
-          "diff",
-          "gitattributes",
-          "gitcommit",
-          "gitignore",
+          'diff',
+          'gitattributes',
+          'gitcommit',
+          'gitignore',
           -- Language parsers
-          "sql",
-          "java",
+          'sql',
+          'java',
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -53,16 +56,16 @@ return {
         indent = {
           enable = true,
         },
-      })
+      }
     end,
   },
   { -- Treesitter playground -> awesome for debugging queries
-    "nvim-treesitter/playground",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/playground',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
     config = function()
-      local configs = require("nvim-treesitter.configs")
+      local configs = require 'nvim-treesitter.configs'
 
-      configs.setup({
+      configs.setup {
         playground = {
           enable = true,
           disable = {},
@@ -80,9 +83,8 @@ return {
             goto_node = '<cr>',
             show_help = '?',
           },
-        }
-      })
-    end
+        },
+      }
+    end,
   },
 }
-

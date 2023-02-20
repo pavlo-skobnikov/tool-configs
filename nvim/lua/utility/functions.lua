@@ -2,19 +2,18 @@ local M = {}
 
 function M.create_description_options_fn(default_options)
   local default_options_or_add_description = function(description)
-    if description == nil
-      then
-        return default_options
-      else
-        local new_options = {}
+    if description == nil then
+      return default_options
+    else
+      local new_options = {}
 
-        for name, value in pairs(default_options) do
-          new_options[name] = value
-        end
+      for name, value in pairs(default_options) do
+        new_options[name] = value
+      end
 
-        new_options.desc = description
+      new_options.desc = description
 
-        return new_options
+      return new_options
     end
   end
 
