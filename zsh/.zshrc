@@ -26,8 +26,8 @@ export PATH="$HOME/.local/bin":$PATH
 
 if command -v bat &> /dev/null
 then
-	alias cat="bat -pp --theme \"Visual Studio Dark+\"" 
-	alias catt="bat --theme \"Visual Studio Dark+\"" 
+	alias cat="bat -pp --theme \"Visual Studio Dark+\""
+	alias catt="bat --theme \"Visual Studio Dark+\""
 fi
 
 # Enable SDKMAN!

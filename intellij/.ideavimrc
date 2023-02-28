@@ -683,3 +683,4 @@ vnoremap <leader>z- :action EditorDecreaseFontSize<CR>
 let g:WhichKeyDesc_Zoom_Reset = "<leader>z0 Reset Font Size"
 nnoremap <leader>z0 :action EditorResetFontSize<CR>
 vnoremap <leader>z0 :action EditorResetFontSize<CR>
+

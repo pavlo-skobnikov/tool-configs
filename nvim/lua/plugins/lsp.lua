@@ -28,14 +28,33 @@ return {
       require('mason').setup()
       require('mason-lspconfig').setup {
         ensure_installed = {
-          'sumneko_lua',
-          'jdtls',
-          'gradle_ls',
+          -- Dockerfile
           'dockerls',
+          -- Bash
+          'bashls',
+          -- Markdown
           'marksman',
+          -- YAML
           'yamlls',
+          -- JSON
           'jsonls',
+          -- Lua
+          'sumneko_lua',
+          -- Java
+          'jdtls',
+          -- Groovy
+          'groovyls',
+          -- Gradle
+          'gradle_ls',
+          -- HTML
+          'html',
+          -- CSS
+          'cssls',
+          -- JavaScript/TypeScript
+          'tsserver',
           'quick_lint_js',
+          -- Rust
+          'rust_analyzer',
         },
 
         automatic_installation = false,
@@ -57,6 +76,12 @@ return {
         end
       end
 
+      lsp_config.dockerls.setup { on_attach = lsp_maps.on_attach }
+      lsp_config.bashls.setup { on_attach = lsp_maps.on_attach }
+      lsp_config.marksman.setup { on_attach = lsp_maps.on_attach }
+      lsp_config.yamlls.setup { on_attach = lsp_maps.on_attach }
+      lsp_config.jsonls.setup { on_attach = lsp_maps.on_attach }
+
       lsp_config.sumneko_lua.setup {
         on_attach = on_attach,
 
@@ -71,11 +96,16 @@ return {
         },
       }
 
+      -- JDTLS gets set up in the nvim-jdtls plugin
+      lsp_config.groovyls.setup { on_attach = lsp_maps.on_attach }
       lsp_config.gradle_ls.setup { on_attach = lsp_maps.on_attach }
-      lsp_config.dockerls.setup { on_attach = lsp_maps.on_attach }
-      lsp_config.marksman.setup { on_attach = lsp_maps.on_attach }
-      lsp_config.yamlls.setup { on_attach = lsp_maps.on_attach }
-      lsp_config.jsonls.setup { on_attach = lsp_maps.on_attach }
+
+      lsp_config.html.setup { on_attach = lsp_maps.on_attach }
+      lsp_config.cssls.setup { on_attach = lsp_maps.on_attach }
+      lsp_config.tsserver.setup { on_attach = lsp_maps.on_attach }
+      lsp_config.quick_lint_js.setup { on_attach = lsp_maps.on_attach }
+
+      lsp_config.rust_analyzer.setup { on_attach = lsp_maps.on_attach }
     end,
   },
   { -- Debug Adapter Protocol client implementation

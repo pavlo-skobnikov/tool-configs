@@ -64,8 +64,11 @@ map('x', '<A-j>', ":move '>+1<CR>gv-gv", options())
 map('x', '<A-k>', ":move '<-2<CR>gv-gv", options())
 
 -- Terminal
--- Better terminal navigation
+-- Better window navigation from terminal
 map('t', '<C-h>', '<C-\\><C-N><C-w>h', { silent = true })
 map('t', '<C-j>', '<C-\\><C-N><C-w>j', { silent = true })
 map('t', '<C-k>', '<C-\\><C-N><C-w>k', { silent = true })
 map('t', '<C-l>', '<C-\\><C-N><C-w>l', { silent = true })
+
+-- Easy enter NORMAL mode in terminal window
+map('t', '<Esc>', '<C-\\><C-n>', options())

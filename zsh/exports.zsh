@@ -4,6 +4,7 @@ SAVEHIST=1000000
 export PATH="$HOME/.local/bin":$PATH
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
+export EDITOR='nvim'
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH="$HOME/.local/share/neovim/bin":$PATH
 export PATH="$HOME/.emacs.d/bin":$PATH

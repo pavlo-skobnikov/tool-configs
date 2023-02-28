@@ -64,7 +64,11 @@ function M.on_attach(client, bufnr)
 
   map_w_buf_opts('n', 'gt', builtin.lsp_type_definitions, 'Jump to Type Definition for Symbol')
 
-  map_w_buf_opts('n', '<space>n', vim.lsp.buf.rename, 'Rename')
+  map_w_buf_opts('n', '<space>n', function ()
+    -- Save buffer before renaming
+    vim.cmd('w')
+    vim.lsp.buf.rename()
+  end, 'Rename')
   map_w_buf_opts('n', '<space>a', vim.lsp.buf.code_action, 'Show Code Actions')
 
   map_w_buf_opts({ 'n', 'v' }, '<space>=', function()
